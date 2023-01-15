@@ -1,5 +1,5 @@
+import { Block, Button } from 'galio-framework';
 import React, { useEffect } from 'react';
-import { Button, Text, View } from 'react-native';
 import {
   RINGER_MODE,
   checkDndAccess,
@@ -42,11 +42,22 @@ const VolumeManager = () => {
   };
 
   return (
-    <View>
-      <Button title="Silent" onPress={() => changeMode(RINGER_MODE.silent)} />
-      <Button title="Normal" onPress={() => changeMode(RINGER_MODE.normal)} />
-      <Button title="Vibrate" onPress={() => changeMode(RINGER_MODE.vibrate)} />
-    </View>
+    <Block center>
+      <Button onPress={() => changeMode(RINGER_MODE.silent)}>
+        set your ringer to Silent mode
+      </Button>
+
+      <Button onPress={() => changeMode(RINGER_MODE.normal)}>
+        set your ringer to Normal mode
+      </Button>
+      <Button
+        ringerMode="Vibrate"
+        description="set your ringer to Vibrate mode"
+        onPress={() => changeMode(RINGER_MODE.vibrate)}
+      >
+        set your ringer to Vibrate mode
+      </Button>
+    </Block>
   );
 };
 

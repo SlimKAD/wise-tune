@@ -55,3 +55,22 @@ export const getMyStringValue = async (key) => {
     console.log(e);
   }
 };
+
+export const colorModeManager = {
+  get: async () => {
+    try {
+      let val = await AsyncStorage.getItem('@example-wrapper-mode');
+      return val === 'dark' ? 'dark' : 'light';
+    } catch (e) {
+      console.log(e);
+      return 'light';
+    }
+  },
+  set: async (value) => {
+    try {
+      await AsyncStorage.setItem('@example-wrapper-mode', value);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+};
