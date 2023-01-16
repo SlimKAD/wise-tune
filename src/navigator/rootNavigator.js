@@ -22,6 +22,7 @@ const localStackOptions = {
   headerTitleStyle: { color: '#4C4C4C', fontSize: 16 },
   headerTintColor: '#2D2D2D',
   headerTitleAlign: 'center',
+  
 };
 
 const RootStack = () => {
@@ -32,8 +33,9 @@ const RootStack = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Volume Manager',
+          headerTransparent: true,
           headerLeft: null,
+          headerTitle: '',
           headerRight: ({ focused }) => (
             <MaterialCommunityIcons
               name="cog-outline"
@@ -41,7 +43,7 @@ const RootStack = () => {
               color={focused ? 'white' : materialTheme.COLORS.MUTED}
               style={{ marginLeft: 4, marginRight: 10 }}
               onPress={() => navigation.navigate('Settings')}
-              size={16}
+              size={22}
             />
           ),
         }}
@@ -50,39 +52,6 @@ const RootStack = () => {
     </Stack.Navigator>
   );
 };
-
-// const TabStack = () => (
-//   <Tab.Navigator
-//     initialRouteName="Home"
-//     tabBarOptions={{
-//       activeTintColor: '#101010',
-//     }}
-//     barStyle={{
-//       height: 60,
-//     }}
-//   >
-//     <Tab.Screen
-//       name="Home"
-//       component={HomeStack}
-//       options={{
-//         tabBarLabel: 'Home',
-//         tabBarIcon: ({ color, size }) => (
-//           <MaterialCommunityIcons  color={color} name="home-outline" size={size} />
-//         ),
-//       }}
-//     />
-//     <Tab.Screen
-//       name="Settings"
-//       component={SettingsStack}
-//       options={{
-//         tabBarLabel: 'Settings',
-//         tabBarIcon: ({ color, size }) => (
-//           <MaterialCommunityIcons color={color} name="cog-outline" size={size} />
-//         ),
-//       }}
-//     />
-//   </Tab.Navigator>
-// );
 
 const RootRouter = () => (
   <Stack.Navigator screenOptions={globalScreenOptions}>

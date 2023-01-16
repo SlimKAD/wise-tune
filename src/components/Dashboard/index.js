@@ -1,5 +1,5 @@
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
-import { Block, Button, Icon, Text } from 'galio-framework';
+import { Block, Button, Text } from 'galio-framework';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -13,14 +13,34 @@ const COLOR_GREY = theme.COLORS.MUTED;
 
 const cards = [
   {
-    title: 'Tasks',
+    title: 'Ringer',
     subtitle: '15 completed tasks',
-    icon: 'list-bullet',
+    icon: 'bell',
   },
   {
-    title: 'Settings',
+    title: 'Alarm',
     subtitle: '15 completed tasks',
-    icon: 'settings-gear-65',
+    icon: 'alarm',
+  },
+  {
+    title: 'Media',
+    subtitle: '15 completed tasks',
+    icon: 'music',
+  },
+  {
+    title: 'Notification',
+    subtitle: '15 completed tasks',
+    icon: 'alert-outline',
+  },
+  {
+    title: 'System',
+    subtitle: '15 completed tasks',
+    icon: 'cellphone',
+  },
+  {
+    title: 'Bluetooth',
+    subtitle: '15 completed tasks',
+    icon: 'bluetooth',
   },
 ];
 
@@ -44,12 +64,6 @@ const Dashboard = (props) => {
           colors={gradientColors}
           style={[styles.gradient, styles.left]}
         >
-          {/* <Icon
-            size={BASE_SIZE}
-            name={options.icon}
-            color={COLOR_WHITE}
-            family={options.iconFamily}
-          /> */}
           <MaterialCommunityIcons
             size={BASE_SIZE}
             name={options.icon}
@@ -67,10 +81,9 @@ const Dashboard = (props) => {
           style={styles.right}
           onPress={() => props.openRingerSheet(options)}
         >
-          <Icon
-            size={BASE_SIZE}
-            name="minimal-right"
-            family="MaterialCommunityIcons"
+          <MaterialCommunityIcons
+            size={BASE_SIZE * 2}
+            name="chevron-right"
             color={COLOR_GREY}
           />
         </Button>
@@ -89,12 +102,13 @@ const Dashboard = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderColor: 'transparent',
+    borderColor: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
     marginHorizontal: BASE_SIZE,
     marginVertical: BASE_SIZE / 2,
     padding: BASE_SIZE,
     backgroundColor: COLOR_WHITE,
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.3,
+    height: BASE_SIZE * 4,
   },
   left: {
     marginRight: BASE_SIZE,
@@ -105,9 +119,9 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   gradient: {
-    width: BASE_SIZE * 3.25,
-    height: BASE_SIZE * 3.25,
-    borderRadius: BASE_SIZE * 3.25,
+    width: BASE_SIZE * 2.25,
+    height: BASE_SIZE * 2.25,
+    borderRadius: BASE_SIZE * 2.25,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Block, Button, Icon, NavBar, Text, theme } from 'galio-framework';
 import { isPointWithinRadius } from 'geolib';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { Dimensions, ImageBackground, StatusBar, StyleSheet } from 'react-native';
 import { SheetManager } from 'react-native-actions-sheet';
 import Geolocation from 'react-native-geolocation-service';
 import { PERMISSIONS } from 'react-native-permissions';
@@ -218,37 +218,11 @@ const Home = () => {
   };
 
   const openRingerSheet = (options) => {
-    console.log(options)
     SheetManager.show('ringer-sheet');
   };
 
   return (
     <Block safe flex style={styles.container}>
-        {/* <NavBar
-          title="Galio Components"
-          right={(
-            <Button
-              onlyIcon
-              icon="heart"
-              iconFamily="font-awesome"
-              iconSize={theme.SIZES.BASE}
-              // iconColor={theme.COLORS.ICON}
-              color="transparent"
-              // onPress={() => Linking.openURL('https://galio.io')}
-            />
-          )}
-          left={(
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Icon 
-                name="menu"
-                family="feather"
-                size={theme.SIZES.BASE}
-                // color={theme.COLORS.ICON}
-              />
-            </TouchableOpacity>
-          )}
-          style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-        /> */}
       <Block flex>
         <ImageBackground
           source={{ uri: Images.Profile }}
@@ -257,7 +231,7 @@ const Home = () => {
         >
           <Block flex style={styles.profileDetails}>
             <Block style={styles.profileTexts}>
-              <Text color="white" size={28} style={{ paddingBottom: 8 }}>
+              {/* <Text color="white" size={28} style={{ paddingBottom: 8 }}>
                 Default Ringer Mode: {defaultRingerMode}
               </Text>
               <Text color="white" size={28} style={{ paddingBottom: 8 }}>
@@ -269,7 +243,7 @@ const Home = () => {
               <Text color="white" size={28} style={{ paddingBottom: 8 }}>
                 is Within Current Location:{' '}
                 {isWithinCurrentLocation ? 'yes' : 'no'}
-              </Text>
+              </Text> */}
 
               <Block>
                 <Text color={theme.COLORS.MUTED} size={16}>
@@ -331,7 +305,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
-    marginTop: -theme.SIZES.BASE * 9,
+    marginTop: -theme.SIZES.BASE * 23,
     borderTopLeftRadius: 13,
     borderTopRightRadius: 13,
     backgroundColor: theme.COLORS.WHITE,
