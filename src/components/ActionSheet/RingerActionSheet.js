@@ -6,9 +6,7 @@ import VolumeManager from '../VolumeManager';
 const RingerActionSheet =(props) =>  {
     return (
       <ActionSheet id={props.sheetId}>
-        <Block>
           <VolumeManager/>
-        </Block>
       </ActionSheet>
     );
   }

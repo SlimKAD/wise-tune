@@ -2,9 +2,7 @@ import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { Block, Text } from 'galio-framework';
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { materialTheme } from '../../constants';
-import Images from '../../constants/Images';
 
 const WHITE_COLOR = materialTheme.COLORS.WHITE;
 

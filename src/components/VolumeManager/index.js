@@ -14,7 +14,6 @@ import { setStringValue } from '../../utils';
 
 const BASE_SIZE = theme.SIZES.BASE;
 const COLOR_GREY = theme.COLORS.MUTED;
-const COLOR_WHITE = theme.COLORS.WHITE;
 
 const requestDnDAccessPermission = async () => {
   let isPermissionGranted = await checkDndAccess();
@@ -63,6 +62,7 @@ const VolumeManager = () => {
         />
         <Radio
           label="Sound"
+          color="#338F6B"
           initialValue={selectedMode === RINGER_MODE.normal}
           value={selectedMode}
           onChange={() => changeMode(RINGER_MODE.normal)}
@@ -82,6 +82,7 @@ const VolumeManager = () => {
         <Radio
           initialValue={selectedMode === RINGER_MODE.vibrate}
           label="Vibrate"
+          color="#338F6B"
           value={selectedMode}
           onChange={() => changeMode(RINGER_MODE.vibrate)}
           disable={selectedMode !==  RINGER_MODE.vibrate}
@@ -99,6 +100,7 @@ const VolumeManager = () => {
         />
         <Radio
           label="Silent"
+          color="#338F6B"
           initialValue={selectedMode === RINGER_MODE.silent}
           value={selectedMode}
           disable={selectedMode !==  RINGER_MODE.silent}

@@ -1,9 +1,7 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import { Block, Text, theme } from 'galio-framework';
+import { Block, theme } from 'galio-framework';
 import { isPointWithinRadius } from 'geolib';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { SheetManager } from 'react-native-actions-sheet';
 import Geolocation from 'react-native-geolocation-service';
 import { PERMISSIONS } from 'react-native-permissions';
 import {
@@ -217,10 +215,6 @@ const Home = () => {
     setRingerSelectedMode(selectedMode);
   };
 
-  const openRingerSheet = (options) => {
-    SheetManager.show('ringer-sheet');
-  };
-
   return (
     <Block safe flex style={styles.container}>
       <Block style={styles.Header}>
@@ -241,7 +235,7 @@ const Home = () => {
               </Text> */}
       </Block>
       <Block flex style={styles.confSection}>
-        <Dashboard openRingerSheet={openRingerSheet} />
+        <Dashboard />
       </Block>
     </Block>
   );
@@ -252,11 +246,11 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.COLORS.WHITE,
-    padding: 20
+    padding: 20,
   },
   Header: {
     marginTop: theme.SIZES.BASE * 3,
-    marginBottom: theme.SIZES.BASE
+    marginBottom: theme.SIZES.BASE,
   },
   confSection: {
     borderTopLeftRadius: theme.SIZES.BASE,
