@@ -2,6 +2,7 @@ const COLORS = {
   WHITE: '#FFFFFF',
   BLACK: '#000000',
   GREY: '#898989',
+  GREEN: '#338F6B',
   THEME: '#B23AFC',
   PRIMARY: '#B23AFC',
   INFO: '#1232FF',
@@ -19,6 +20,8 @@ const COLORS = {
   TWITTER: '#5BC0DE',
   DRIBBBLE: '#EA4C89',
   ICON: '#000000',
+  BUTTON_COLOR: "#338F6B",
+  HOVERED: '#D6F0E3'
 };
 
 const SIZES = {

@@ -1,8 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Block, Button, Icon, NavBar, Text, theme } from 'galio-framework';
+import { Block, Text, theme } from 'galio-framework';
 import { isPointWithinRadius } from 'geolib';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, ImageBackground, StatusBar, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { SheetManager } from 'react-native-actions-sheet';
 import Geolocation from 'react-native-geolocation-service';
 import { PERMISSIONS } from 'react-native-permissions';
@@ -15,11 +15,11 @@ import {
 } from 'react-native-ringer-mode';
 import { GOOGLE_API_KEY } from '@env';
 import * as CONFIG from '../../../config';
-import { Images, materialTheme } from '../../constants';
-import { HeaderHeight } from '../../constants/utils';
 import { getMyStringValue } from '../../utils';
 import { checkPermission, isAndroid, requestPermission } from '../../utils';
-import Dashboard from '../Dashboard'
+import Dashboard from '../Dashboard';
+import PrayerList from '../PrayerList';
+import PrayerTimeCard from '../PrayerTimeCard';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -223,15 +223,10 @@ const Home = () => {
 
   return (
     <Block safe flex style={styles.container}>
-      <Block flex>
-        <ImageBackground
-          source={{ uri: Images.Profile }}
-          style={styles.profileContainer}
-          imageStyle={styles.profileImage}
-        >
-          <Block flex style={styles.profileDetails}>
-            <Block style={styles.profileTexts}>
-              {/* <Text color="white" size={28} style={{ paddingBottom: 8 }}>
+      <Block style={styles.Header}>
+        <PrayerList />
+        <PrayerTimeCard />
+        {/* <Text color="white" size={28} style={{ paddingBottom: 8 }}>
                 Default Ringer Mode: {defaultRingerMode}
               </Text>
               <Text color="white" size={28} style={{ paddingBottom: 8 }}>
@@ -244,22 +239,9 @@ const Home = () => {
                 is Within Current Location:{' '}
                 {isWithinCurrentLocation ? 'yes' : 'no'}
               </Text> */}
-
-              <Block>
-                <Text color={theme.COLORS.MUTED} size={16}>
-                  Los Angeles, CA
-                </Text>
-              </Block>
-            </Block>
-            <LinearGradient
-              colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
-              style={styles.gradient}
-            />
-          </Block>
-        </ImageBackground>
       </Block>
-      <Block flex style={styles.options}>
-          <Dashboard openRingerSheet={openRingerSheet}/>
+      <Block flex style={styles.confSection}>
+        <Dashboard openRingerSheet={openRingerSheet} />
       </Block>
     </Block>
   );
@@ -269,63 +251,18 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: isAndroid ? -HeaderHeight : 0,
-    marginBottom: -HeaderHeight * 2,
-  },
-  profileImage: {
-    width: width * 1.1,
-    height: 'auto',
-  },
-  profileContainer: {
-    width: width,
-    height: height / 2,
-  },
-  profileDetails: {
-    paddingTop: theme.SIZES.BASE * 4,
-    justifyContent: 'flex-end',
-    position: 'relative',
-  },
-  profileTexts: {
-    paddingHorizontal: theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE * 2,
-    zIndex: 2,
-  },
-  pro: {
-    backgroundColor: materialTheme.COLORS.LABEL,
-    paddingHorizontal: 6,
-    marginRight: theme.SIZES.BASE / 2,
-    borderRadius: 4,
-    height: 19,
-    width: 38,
-  },
-  seller: {
-    marginRight: theme.SIZES.BASE / 2,
-  },
-  options: {
-    position: 'relative',
-    padding: theme.SIZES.BASE,
-    marginHorizontal: theme.SIZES.BASE,
-    marginTop: -theme.SIZES.BASE * 23,
-    borderTopLeftRadius: 13,
-    borderTopRightRadius: 13,
     backgroundColor: theme.COLORS.WHITE,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 0 },
+    padding: 20
+  },
+  Header: {
+    marginTop: theme.SIZES.BASE * 3,
+    marginBottom: theme.SIZES.BASE
+  },
+  confSection: {
+    borderTopLeftRadius: theme.SIZES.BASE,
+    borderTopRightRadius: theme.SIZES.BASE,
     shadowRadius: 8,
     shadowOpacity: 0.2,
     zIndex: 2,
-  },
-  thumb: {
-    borderRadius: 4,
-    marginVertical: 4,
-    alignSelf: 'center',
-  },
-  gradient: {
-    zIndex: 1,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: '30%',
-    position: 'absolute',
   },
 });

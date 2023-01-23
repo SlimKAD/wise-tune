@@ -8,30 +8,39 @@ import theme from '../../constants/Theme';
 const BASE_SIZE = theme.SIZES.BASE;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
 const GRADIENT_PINK = ['#D442F8', '#B645F5', '#9B40F8'];
+const GRADIENT_GREEN = ['#5DB996', '#35926D']
 const COLOR_WHITE = theme.COLORS.WHITE;
-const COLOR_GREY = theme.COLORS.MUTED;
+const COLOR_GREEN = theme.COLORS.GREEN;
+const COLOR_HOVERED = theme.COLORS.HOVERED;
 
 const cards = [
   {
     title: 'Ringer',
     subtitle: '15 completed tasks',
-    icon: 'bell',
+    icon: 'bell-ring-outline',
   },
+
   {
     title: 'Alarm',
     subtitle: '15 completed tasks',
     icon: 'alarm',
   },
   {
-    title: 'Media',
+    title: 'Notification',
+    subtitle: '15 completed tasks',
+    icon: 'bell',
+  },
+  {
+    title: 'In-call',
+    subtitle: '15 completed tasks',
+    icon: 'phone',
+  },
+  {
+    title: 'Music, Videos, Games',
     subtitle: '15 completed tasks',
     icon: 'music',
   },
-  {
-    title: 'Notification',
-    subtitle: '15 completed tasks',
-    icon: 'alert-outline',
-  },
+
   {
     title: 'System',
     subtitle: '15 completed tasks',
@@ -46,14 +55,13 @@ const cards = [
 
 const Dashboard = (props) => {
   const renderCard = (options, index) => {
-    const gradientColors = index % 2 ? GRADIENT_BLUE : GRADIENT_PINK;
+    const gradientColors = GRADIENT_GREEN
 
     return (
       <Block
         row
         center
         card
-        shadow
         space="between"
         style={styles.card}
         key={options.title}
@@ -72,7 +80,7 @@ const Dashboard = (props) => {
         </Gradient>
 
         <Block flex>
-          <Text size={BASE_SIZE * 1.125}>{options.title}</Text>
+          <Text bold size={BASE_SIZE}>{options.title}</Text>
           <Text size={BASE_SIZE * 0.875} muted>
             {options.subtitle}
           </Text>
@@ -84,7 +92,7 @@ const Dashboard = (props) => {
           <MaterialCommunityIcons
             size={BASE_SIZE * 2}
             name="chevron-right"
-            color={COLOR_GREY}
+            color={COLOR_GREEN}
           />
         </Button>
       </Block>
@@ -102,12 +110,10 @@ const Dashboard = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderColor: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-    marginHorizontal: BASE_SIZE,
-    marginVertical: BASE_SIZE / 2,
+    borderColor: 'rgba(99, 99, 99, 0.1) 0px 2px 8px 0px',
+    marginVertical: BASE_SIZE,
     padding: BASE_SIZE,
     backgroundColor: COLOR_WHITE,
-    shadowOpacity: 0.3,
     height: BASE_SIZE * 4,
   },
   left: {

@@ -3,13 +3,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import CurrentLocation from '../components/CurrentLocation';
 import HomeScreen from '../components/Home';
 import OnboardingScreen from '../components/Onboarding';
 import SettingsScreen from '../components/Settings';
 import { materialTheme } from '../constants';
 
 const Stack = createStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
 
 const globalScreenOptions = {
   mode: 'card',
@@ -22,7 +22,6 @@ const localStackOptions = {
   headerTitleStyle: { color: '#4C4C4C', fontSize: 16 },
   headerTintColor: '#2D2D2D',
   headerTitleAlign: 'center',
-  
 };
 
 const RootStack = () => {
@@ -34,16 +33,16 @@ const RootStack = () => {
         component={HomeScreen}
         options={{
           headerTransparent: true,
-          headerLeft: null,
+          headerLeft: () => <CurrentLocation />,
           headerTitle: '',
           headerRight: ({ focused }) => (
             <MaterialCommunityIcons
               name="cog-outline"
               family="GalioExtra"
-              color={focused ? 'white' : materialTheme.COLORS.MUTED}
-              style={{ marginLeft: 4, marginRight: 10 }}
+              color={materialTheme.COLORS.MUTED}
+              style={{ marginRight: 16, marginTop: 10 }}
               onPress={() => navigation.navigate('Settings')}
-              size={22}
+              size={30}
             />
           ),
         }}

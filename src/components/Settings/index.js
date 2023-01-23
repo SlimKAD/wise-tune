@@ -62,6 +62,7 @@ export default class Settings extends React.Component {
 
   render() {
     const recommended = [
+      { title: 'Disable Wise tune functionality', id: 'wise-tune', type: 'switch' },
       { title: 'Use dark mode', id: 'face', type: 'switch' },
       { title: 'Notifications', id: 'Notifications', type: 'button' },
     ];

@@ -1,5 +1,6 @@
-import { Block, Button } from 'galio-framework';
-import React, { useEffect } from 'react';
+import { Block, Button, Radio } from 'galio-framework';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import {
   RINGER_MODE,
   checkDndAccess,
@@ -7,7 +8,13 @@ import {
   requestDndAccess,
   useRingerMode,
 } from 'react-native-ringer-mode';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import theme from '../../constants/Theme';
 import { setStringValue } from '../../utils';
+
+const BASE_SIZE = theme.SIZES.BASE;
+const COLOR_GREY = theme.COLORS.MUTED;
+const COLOR_WHITE = theme.COLORS.WHITE;
 
 const requestDnDAccessPermission = async () => {
   let isPermissionGranted = await checkDndAccess();
@@ -19,19 +26,21 @@ const requestDnDAccessPermission = async () => {
 
 const VolumeManager = () => {
   const { mode, setMode } = useRingerMode();
+  const [selectedMode, setSelectedMode] = useState();
 
   useEffect(() => {
     (async () => {
       try {
         const currentMode = await getRingerMode();
         setMode(currentMode);
+        setSelectedMode(currentMode);
       } catch (error) {
         console.error(error);
       }
     })();
   }, [mode]);
 
-  const changeMode = async (newMode) => {
+  const changeMode = async (newMode, options) => {
     if (newMode === RINGER_MODE.silent || mode === RINGER_MODE.silent) {
       const isGranted = await requestDnDAccessPermission();
       if (!isGranted) {
@@ -39,26 +48,79 @@ const VolumeManager = () => {
       }
     }
     setStringValue('ringerMode', newMode.toString());
+    setSelectedMode(newMode);
   };
 
-  return (
-    <Block center>
-      <Button onPress={() => changeMode(RINGER_MODE.silent)}>
-        set your ringer to Silent mode
-      </Button>
+  console.log(mode, selectedMode)
 
-      <Button onPress={() => changeMode(RINGER_MODE.normal)}>
-        set your ringer to Normal mode
-      </Button>
-      <Button
-        ringerMode="Vibrate"
-        description="set your ringer to Vibrate mode"
-        onPress={() => changeMode(RINGER_MODE.vibrate)}
-      >
-        set your ringer to Vibrate mode
-      </Button>
+  return (
+    <Block center flexDirection="row" style={styles.ringerContainer}>
+      <Block flex center>
+        <MaterialCommunityIcons
+          size={BASE_SIZE * 2}
+          name="bell-outline"
+          color={COLOR_GREY}
+        />
+        <Radio
+          label="Sound"
+          initialValue={selectedMode === RINGER_MODE.normal}
+          value={selectedMode}
+          onChange={() => changeMode(RINGER_MODE.normal)}
+          disable={selectedMode !==  RINGER_MODE.normal}
+          flexDirection="column-reverse"
+          radioOuterStyle={{ height: BASE_SIZE, width: BASE_SIZE }}
+          labelStyle={{ color: COLOR_GREY }}
+        />
+      </Block>
+      <Block style={styles.separator} />
+      <Block flex center>
+        <MaterialCommunityIcons
+          size={BASE_SIZE * 2}
+          name="vibrate"
+          color={COLOR_GREY}
+        />
+        <Radio
+          initialValue={selectedMode === RINGER_MODE.vibrate}
+          label="Vibrate"
+          value={selectedMode}
+          onChange={() => changeMode(RINGER_MODE.vibrate)}
+          disable={selectedMode !==  RINGER_MODE.vibrate}
+          flexDirection="column-reverse"
+          radioOuterStyle={{ height: BASE_SIZE, width: BASE_SIZE }}
+          labelStyle={{ color: COLOR_GREY }}
+        />
+      </Block>
+      <Block style={styles.separator} />
+      <Block flex center>
+        <MaterialCommunityIcons
+          size={BASE_SIZE * 2}
+          name="bell-off-outline"
+          color={COLOR_GREY}
+        />
+        <Radio
+          label="Silent"
+          initialValue={selectedMode === RINGER_MODE.silent}
+          value={selectedMode}
+          disable={selectedMode !==  RINGER_MODE.silent}
+          onChange={(options) => changeMode(RINGER_MODE.silent, options)}
+          flexDirection="column-reverse"
+          radioOuterStyle={{ height: BASE_SIZE, width: BASE_SIZE }}
+          labelStyle={{ color: COLOR_GREY }}
+        />
+      </Block>
     </Block>
   );
 };
 
 export default VolumeManager;
+
+const styles = StyleSheet.create({
+  ringerContainer: {
+    marginTop: BASE_SIZE,
+  },
+  separator: {
+    height: 100,
+    borderColor: COLOR_GREY,
+    borderWidth: 0.5,
+  },
+});
