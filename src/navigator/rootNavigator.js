@@ -1,6 +1,5 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CurrentLocation from '../components/CurrentLocation';
@@ -33,7 +32,7 @@ const RootStack = () => {
         component={HomeScreen}
         options={{
           headerTransparent: true,
-          headerLeft: () => <CurrentLocation />,
+          headerLeft: null,
           headerTitle: '',
           headerRight: ({ focused }) => (
             <MaterialCommunityIcons

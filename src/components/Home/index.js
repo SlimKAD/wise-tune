@@ -15,6 +15,7 @@ import { GOOGLE_API_KEY } from '@env';
 import * as CONFIG from '../../../config';
 import { getMyStringValue } from '../../utils';
 import { checkPermission, isAndroid, requestPermission } from '../../utils';
+import CurrentLocation from '../CurrentLocation'
 import Dashboard from '../Dashboard';
 import PrayerList from '../PrayerList';
 import PrayerTimeCard from '../PrayerTimeCard';
@@ -52,22 +53,17 @@ const Home = () => {
   const [defaultRingerMode, setDefaultRingerMode] = useState(null);
   const [selectedRingerMode, setRingerSelectedMode] = useState(null);
   const [currentRingerMode, setCurrentRingerMode] = useState(null);
+  const [currentLocationInfo, setCurrentLocationInfo] = useState({});
 
   useEffect(() => {
     getCurrentLocation();
+    getNearestPoint();
   }, [currentLocation]);
 
   useEffect(() => {
     getCurrentRingerMode();
-  }, []);
-
-  useEffect(() => {
     getSelectedMode();
   }, []);
-
-  useEffect(() => {
-    getNearestPoint();
-  }, [currentLocation]);
 
   useEffect(() => {
     (async () => {
@@ -96,8 +92,9 @@ const Home = () => {
     result.then((res) => {
       if (res) {
         Geolocation.watchPosition(
-          (position) => {
-            setCurrentLocation(position.coords);
+          ({ coords }) => {
+            setCurrentLocation(coords);
+            getCurrentLocationInfo(coords);
           },
           (error) => {
             setCurrentLocation(null);
@@ -110,6 +107,39 @@ const Home = () => {
           }
         );
       }
+    });
+  };
+
+  const getCurrentLocationInfo = ({ latitude, longitude }) => {
+    const getLocationInfoUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=false&key=${GOOGLE_API_KEY}`;
+
+    fetch(getLocationInfoUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== 'OK') {
+          return;
+        }
+        getCityAndCountry(res);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getCityAndCountry = ({ results }) => {
+    const { address_components } = results.shift();
+
+    const street = address_components?.filter((address) =>
+      address.types.includes('route')
+    );
+    const city = address_components?.filter((address) =>
+      address.types.includes('locality')
+    );
+    const country = address_components?.filter((address) =>
+      address.types.includes('country')
+    );
+    setCurrentLocationInfo({
+      street: street.pop(),
+      city: city.pop(),
+      country: country.pop(),
     });
   };
 
@@ -136,6 +166,7 @@ const Home = () => {
     const rankby = `&rankby:${CONFIG.RANKBY}`;
     return `${baseUrl}${location}${typeData}${api}${rankby}`;
   };
+
   getNearestPlaceCoords = (places) => places?.pop()?.coords;
 
   const getNearestPoint = () => {
@@ -152,6 +183,7 @@ const Home = () => {
       CONFIG.POINT_TYPE,
       GOOGLE_API_KEY
     );
+
     fetch(url)
       .then((res) => res.json())
       .then((res) => {
@@ -160,13 +192,13 @@ const Home = () => {
         }
         res.results.map((element) => {
           const marketObj = {};
-          marketObj.name = element.name;
-          marketObj.photos = element.photos;
-          marketObj.rating = element.rating;
-          marketObj.vicinity = element.vicinity;
+          marketObj.name = element?.name;
+          marketObj.photos = element?.photos;
+          marketObj.rating = element?.rating;
+          marketObj.vicinity = element?.vicinity;
           marketObj.coords = {
-            latitude: element.geometry.location.lat,
-            longitude: element.geometry.location.lng,
+            latitude: element?.geometry?.location.lat,
+            longitude: element?.geometry?.location.lng,
           };
 
           places.push(marketObj);
@@ -217,6 +249,7 @@ const Home = () => {
 
   return (
     <Block safe flex style={styles.container}>
+      <CurrentLocation currentLocationInfo={currentLocationInfo}/>
       <Block style={styles.Header}>
         <PrayerList />
         <PrayerTimeCard />

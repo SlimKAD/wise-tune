@@ -21,7 +21,7 @@ const PrayerTimeCard = () => {
             style={{ height: '100%', width: '100%' }}
           />
         </Block>
-        <Block flex center space="between">
+        <Block flex center space="between" style={styles.infoContainer}>
           <Block flex>
             <Text bold color={WHITE_COLOR}>
               Dhuhr
@@ -72,4 +72,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginBottom: 3,
   },
+  infoContainer: {
+    marginTop: materialTheme.SIZES.BASE
+  }
 });

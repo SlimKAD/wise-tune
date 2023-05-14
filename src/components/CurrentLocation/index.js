@@ -4,7 +4,9 @@ import { StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { materialTheme } from '../../constants';
 
-const CurrentLocation = () => {
+const CurrentLocation = (props) => {
+  const { currentLocationInfo } = props;
+
   return (
     <Block flexDirection="row" style={styles.container}>
       <MaterialCommunityIcons
@@ -21,8 +23,9 @@ const CurrentLocation = () => {
           </Text>
         </Block>
         <Block>
-          <Text bold size={materialTheme.BASE} style={{marginTop: 5}}>
-            MONTREAL, CANADA
+          <Text bold size={materialTheme.BASE} style={{ marginTop: 5 }}>
+            {currentLocationInfo?.city?.long_name},{' '}
+            {currentLocationInfo?.country?.long_name}
           </Text>
         </Block>
       </Block>
