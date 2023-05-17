@@ -6,7 +6,10 @@ import { materialTheme } from '../../constants';
 
 const WHITE_COLOR = materialTheme.COLORS.WHITE;
 
-const PrayerTimeCard = () => {
+const PrayerTimeCard = (props) => {
+  const firstNextPrayer = props?.nextPrayers[0];
+  const secondNextPrayer = props?.nextPrayers[1];
+
   return (
     <Block center style={styles.card}>
       <Gradient
@@ -24,28 +27,21 @@ const PrayerTimeCard = () => {
         <Block flex center space="between" style={styles.infoContainer}>
           <Block flex>
             <Text bold color={WHITE_COLOR}>
-              Dhuhr
+              {firstNextPrayer?.name}
             </Text>
             <Block row>
               <Text h4 bold color={WHITE_COLOR}>
-                11:45{' '}
-              </Text>
-              <Text bold style={styles.timeSymbol} color={WHITE_COLOR}>
-                PM
+                {firstNextPrayer?.time}{' '}
               </Text>
             </Block>
           </Block>
           <Block flex>
             <Text bold color={WHITE_COLOR}>
-              Next Prayer: Asr
+              Next Prayer: {secondNextPrayer?.name}
             </Text>
             <Block flexDirection="row">
               <Text bold color={WHITE_COLOR}>
-                11:45
-              </Text>
-              <Text bold color={WHITE_COLOR}>
-                {' '}
-                PM
+                {secondNextPrayer?.time}
               </Text>
             </Block>
           </Block>
@@ -73,6 +69,6 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   infoContainer: {
-    marginTop: materialTheme.SIZES.BASE
-  }
+    marginTop: materialTheme.SIZES.BASE,
+  },
 });

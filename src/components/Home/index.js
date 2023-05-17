@@ -1,5 +1,7 @@
 import { Block, theme } from 'galio-framework';
 import { isPointWithinRadius } from 'geolib';
+import _ from 'lodash';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
@@ -15,7 +17,7 @@ import { GOOGLE_API_KEY } from '@env';
 import * as CONFIG from '../../../config';
 import { getMyStringValue } from '../../utils';
 import { checkPermission, isAndroid, requestPermission } from '../../utils';
-import CurrentLocation from '../CurrentLocation'
+import CurrentLocation from '../CurrentLocation';
 import Dashboard from '../Dashboard';
 import PrayerList from '../PrayerList';
 import PrayerTimeCard from '../PrayerTimeCard';
@@ -54,6 +56,7 @@ const Home = () => {
   const [selectedRingerMode, setRingerSelectedMode] = useState(null);
   const [currentRingerMode, setCurrentRingerMode] = useState(null);
   const [currentLocationInfo, setCurrentLocationInfo] = useState({});
+  const [nextPrayers, setNextPrayers] = useState({});
 
   useEffect(() => {
     getCurrentLocation();
@@ -95,9 +98,11 @@ const Home = () => {
           ({ coords }) => {
             setCurrentLocation(coords);
             getCurrentLocationInfo(coords);
+            getPrayerTimeInfo(coords);
           },
           (error) => {
             setCurrentLocation(null);
+            setCurrentLocationInfo({});
           },
           {
             enableHighAccuracy: true,
@@ -108,6 +113,54 @@ const Home = () => {
         );
       }
     });
+  };
+
+  const getPrayerTimeInfo = ({ latitude, longitude }) => {
+    const getPrayerUrl = `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=0`;
+
+    fetch(getPrayerUrl)
+      .then((res) => res.json())
+      .then(({ status, data }) => {
+        if (status !== 'OK') {
+          return;
+        }
+        getNextPrayers(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getNextPrayers = ({ timings }) => {
+    const onlyImportantPrayers = _.pick(timings, [
+      'Fajr',
+      'Sunrise',
+      'Dhuhr',
+      'Asr',
+      'Maghrib',
+      'Isha',
+    ]);
+    const nextPrayers = [];
+    const [currentHour, currentMinute] = moment().format('HH:mm').split(':');
+    console.log({onlyImportantPrayers})
+
+    Object.keys(onlyImportantPrayers).forEach((time, index) => {
+      const [hours, minutes] = timings[time].split(':');
+
+      if (
+        currentHour <= hours &&
+        currentMinute <= minutes &&
+        nextPrayers.length < 2
+      ) {
+        nextPrayers.push({
+          name: time,
+          time: onlyImportantPrayers[time],
+          order: index,
+        });
+      }
+    });
+
+    console.log({ nextPrayers});
+
+    setNextPrayers(nextPrayers);
   };
 
   const getCurrentLocationInfo = ({ latitude, longitude }) => {
@@ -249,10 +302,10 @@ const Home = () => {
 
   return (
     <Block safe flex style={styles.container}>
-      <CurrentLocation currentLocationInfo={currentLocationInfo}/>
+      <CurrentLocation currentLocationInfo={currentLocationInfo} />
       <Block style={styles.Header}>
-        <PrayerList />
-        <PrayerTimeCard />
+        <PrayerList nextPrayer={nextPrayers && nextPrayers[0]} />
+        <PrayerTimeCard nextPrayers={nextPrayers} />
         {/* <Text color="white" size={28} style={{ paddingBottom: 8 }}>
                 Default Ringer Mode: {defaultRingerMode}
               </Text>

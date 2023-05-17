@@ -20,8 +20,8 @@ const prayers = [
 
 const { width } = Dimensions.get('screen');
 
-const PrayerList = () => {
-  const [selectedPrayer, setSelectedPrayer] = useState(2);
+const PrayerList = (props) => {
+  const selectedPrayer = props.nextPrayer?.order || 0
 
   return (
     <ScrollView style={styles.container}>
