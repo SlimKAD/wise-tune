@@ -18,26 +18,18 @@ const PrayerTimeCard = (props) => {
         end={{ x: 0, y: 0 }}
         colors={['#35926D', '#7DCFB1']}
       >
-        <Block flex>
-          <Image
-            source={require('../../../assets/mosque1.png')}
-            style={{ height: '100%', width: '100%' }}
-          />
-        </Block>
-        <Block flex center space="between" style={styles.infoContainer}>
-          <Block flex>
-            <Text bold color={WHITE_COLOR}>
+        <Block flex style={styles.infoContainer}>
+          <Block flex space='around'>
+            <Text h6 color={WHITE_COLOR}>
               {firstNextPrayer?.name}
             </Text>
-            <Block row>
-              <Text h4 bold color={WHITE_COLOR}>
-                {firstNextPrayer?.time}{' '}
-              </Text>
-            </Block>
+            <Text h3 bold color={WHITE_COLOR}>
+              {firstNextPrayer?.time}{' '}
+            </Text>
           </Block>
-          <Block flex>
-            <Text bold color={WHITE_COLOR}>
-              Next Prayer: {secondNextPrayer?.name}
+          <Block flex style={{ marginTop: materialTheme.SIZES.BASE * 1.5 }}>
+            <Text bottom color={WHITE_COLOR}>
+              Next Pray: {secondNextPrayer?.name}
             </Text>
             <Block flexDirection="row">
               <Text bold color={WHITE_COLOR}>
@@ -45,6 +37,12 @@ const PrayerTimeCard = (props) => {
               </Text>
             </Block>
           </Block>
+        </Block>
+        <Block flex>
+          <Image
+            source={require('../../../assets/mosque.png')}
+            style={{ height: '90%', width: '100%' }}
+          />
         </Block>
       </Gradient>
     </Block>
@@ -63,6 +61,7 @@ const styles = StyleSheet.create({
     paddingLeft: materialTheme.SIZES.BASE,
     paddingTop: materialTheme.SIZES.BASE * 1.5,
     flexDirection: 'row',
+    padding: materialTheme.SIZES.BASE,
   },
   timeSymbol: {
     alignSelf: 'flex-end',

@@ -61,9 +61,14 @@ export default class Settings extends React.Component {
   };
 
   render() {
-    const recommended = [
-      { title: 'Disable Wise tune functionality', id: 'wise-tune', type: 'switch' },
-      { title: 'Use dark mode', id: 'face', type: 'switch' },
+    const settings = [
+      {
+        title: 'Enable Wise Tune',
+        id: 'wise-tune',
+        type: 'switch',
+      },
+    ];
+    const generalSettings = [
       { title: 'Notifications', id: 'Notifications', type: 'button' },
     ];
 
@@ -79,7 +84,13 @@ export default class Settings extends React.Component {
         contentContainerStyle={styles.settings}
       >
         <FlatList
-          data={recommended}
+          data={settings}
+          keyExtractor={(item, index) => item.id}
+          renderItem={this.renderItem}
+        />
+
+        <FlatList
+          data={generalSettings}
           keyExtractor={(item, index) => item.id}
           renderItem={this.renderItem}
           ListHeaderComponent={
@@ -90,10 +101,7 @@ export default class Settings extends React.Component {
                 size={theme.SIZES.BASE}
                 style={{ paddingBottom: 5 }}
               >
-                Recommended Settings
-              </Text>
-              <Text center muted size={12}>
-                These are the most important settings
+                General settings
               </Text>
             </Block>
           }

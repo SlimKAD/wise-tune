@@ -14,48 +14,35 @@ const COLOR_HOVERED = theme.COLORS.HOVERED;
 
 const cards = [
   {
-    title: 'Ringer',
-    subtitle: '15 completed tasks',
+    title: 'Ringer, Notifications',
+    subtitle: 'Vibration',
+    icon: 'volume-high',
+    sheetName: 'volume-high',
+  },
+  {
+    title: 'Do Not Disturb',
+    subtitle: 'Off',
     icon: 'bell-ring-outline',
     sheetName: 'ringer-sheet',
   },
 
   {
-    title: 'Alarm',
-    subtitle: '15 completed tasks',
+    title: 'Alarms',
+    subtitle: '47%',
     icon: 'alarm',
     sheetName: 'alarm-sheet',
   },
   {
-    title: 'Notification',
-    subtitle: '15 completed tasks',
-    icon: 'bell',
-    sheetName: 'notification-sheet',
-  },
-  {
-    title: 'In-call',
-    subtitle: '15 completed tasks',
+    title: 'Calls',
+    subtitle: '15%',
     icon: 'phone',
     sheetName: 'call-sheet',
   },
   {
     title: 'Music, Videos, Games',
-    subtitle: '15 completed tasks',
+    subtitle: '0%',
     icon: 'music',
     sheetName: 'medias-sheet',
-  },
-
-  {
-    title: 'System',
-    subtitle: '15 completed tasks',
-    icon: 'cellphone',
-    sheetName: 'system-sheet',
-  },
-  {
-    title: 'Bluetooth',
-    subtitle: '15 completed tasks',
-    icon: 'bluetooth',
-    sheetName: 'bluetooth-sheet',
   },
 ];
 
