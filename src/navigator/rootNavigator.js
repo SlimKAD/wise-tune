@@ -2,7 +2,6 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import CurrentLocation from '../components/CurrentLocation';
 import HomeScreen from '../components/Home';
 import OnboardingScreen from '../components/Onboarding';
 import SettingsScreen from '../components/Settings';
@@ -46,7 +45,15 @@ const RootStack = () => {
           ),
         }}
       />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen
+        options={{
+          headerTintColor: '#ffffff',
+          headerStyle: { backgroundColor: '#5DB996' },
+          headerTitleStyle: { color: 'white' },
+        }}
+        name="Settings"
+        component={SettingsScreen}
+      />
     </Stack.Navigator>
   );
 };

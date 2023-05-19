@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import materialTheme from '../../constants/Theme';
 
 export default class Settings extends React.Component {
@@ -22,7 +23,7 @@ export default class Settings extends React.Component {
     switch (item.type) {
       case 'switch':
         return (
-          <Block row middle space="between" style={styles.rows}>
+          <Block row space="between" style={styles.rows}>
             <Text size={14}>{item.title}</Text>
             <Switch
               onValueChange={() => this.toggleSwitch(item.id)}
@@ -61,13 +62,6 @@ export default class Settings extends React.Component {
   };
 
   render() {
-    const settings = [
-      {
-        title: 'Enable Wise Tune',
-        id: 'wise-tune',
-        type: 'switch',
-      },
-    ];
     const generalSettings = [
       { title: 'Notifications', id: 'Notifications', type: 'button' },
     ];
@@ -82,12 +76,24 @@ export default class Settings extends React.Component {
       <View
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.settings}
+        style={{ padding: theme.SIZES.BASE * 2 }}
       >
-        <FlatList
-          data={settings}
-          keyExtractor={(item, index) => item.id}
-          renderItem={this.renderItem}
-        />
+        <Block row space="between" style={styles.enableBox}>
+          <Block row>
+            <MaterialCommunityIcons size={25} name="power" />
+            <Text size={14}>Enable Wise Tune</Text>
+          </Block>
+          <Switch
+            ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
+            thumbColor={
+              Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null
+            }
+            trackColor={{
+              false: materialTheme.COLORS.SWITCH_OFF,
+              true: materialTheme.COLORS.SWITCH_ON,
+            }}
+          />
+        </Block>
 
         <FlatList
           data={generalSettings}
@@ -95,12 +101,7 @@ export default class Settings extends React.Component {
           renderItem={this.renderItem}
           ListHeaderComponent={
             <Block style={styles.title}>
-              <Text
-                bold
-                center
-                size={theme.SIZES.BASE}
-                style={{ paddingBottom: 5 }}
-              >
+              <Text bold color="#5DB996">
                 General settings
               </Text>
             </Block>
@@ -108,16 +109,8 @@ export default class Settings extends React.Component {
         />
 
         <Block style={styles.title}>
-          <Text
-            bold
-            center
-            size={theme.SIZES.BASE}
-            style={{ paddingBottom: 5 }}
-          >
+          <Text bold color="#5DB996">
             Privacy Settings
-          </Text>
-          <Text center muted size={12}>
-            This most important settings
           </Text>
         </Block>
         <FlatList
@@ -131,8 +124,9 @@ export default class Settings extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  enableBox: {},
   settings: {
-    paddingVertical: theme.SIZES.BASE / 3,
+    paddingVertical: theme.SIZES.BASE,
   },
   title: {
     paddingTop: theme.SIZES.BASE,
@@ -141,6 +135,6 @@ const styles = StyleSheet.create({
   rows: {
     height: theme.SIZES.BASE * 2,
     paddingHorizontal: theme.SIZES.BASE,
-    marginBottom: theme.SIZES.BASE / 2,
+    marginBottom: theme.SIZES.BASE,
   },
 });
