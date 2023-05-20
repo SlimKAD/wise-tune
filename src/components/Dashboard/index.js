@@ -7,7 +7,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import theme from '../../constants/Theme';
 
 const BASE_SIZE = theme.SIZES.BASE;
-const GRADIENT_GREEN = ['#5DB996', '#35926D'];
 const COLOR_WHITE = theme.COLORS.WHITE;
 const COLOR_GREEN = theme.COLORS.GREEN;
 const COLOR_HOVERED = theme.COLORS.HOVERED;
@@ -18,12 +17,14 @@ const cards = [
     subtitle: 'Vibration',
     icon: 'volume-high',
     sheetName: 'volume-high',
+    gradientColor: ['#909bda', '#752098'],
   },
   {
     title: 'Do Not Disturb',
     subtitle: 'Off',
-    icon: 'bell-ring-outline',
+    icon: 'power-sleep',
     sheetName: 'ringer-sheet',
+    gradientColor: ['#879099', '#1F2D3B'],
   },
 
   {
@@ -31,18 +32,21 @@ const cards = [
     subtitle: '47%',
     icon: 'alarm',
     sheetName: 'alarm-sheet',
+    gradientColor: ['#eeb159', '#FE9601'],
   },
   {
     title: 'Calls',
     subtitle: '15%',
     icon: 'phone',
     sheetName: 'call-sheet',
+    gradientColor: ['#5DB996', '#35926D'],
   },
   {
     title: 'Music, Videos, Games',
     subtitle: '0%',
     icon: 'music',
     sheetName: 'medias-sheet',
+    gradientColor: ['#76c7ee', '#04A7F4'],
   },
 ];
 
@@ -55,7 +59,7 @@ const Dashboard = () => {
   };
 
   const renderCard = (options) => {
-    const gradientColors = GRADIENT_GREEN;
+    const gradientColors = options.gradientColor;
 
     return (
       <Block
@@ -121,9 +125,9 @@ const styles = StyleSheet.create({
   card: {
     borderColor: 'rgba(99, 99, 99, 0.1) 0px 2px 8px 0px',
     marginVertical: BASE_SIZE,
-    padding: BASE_SIZE,
+    paddingLeft: BASE_SIZE,
     backgroundColor: COLOR_WHITE,
-    height: BASE_SIZE * 4,
+    height: BASE_SIZE * 3.5,
   },
   left: {
     marginRight: BASE_SIZE,
