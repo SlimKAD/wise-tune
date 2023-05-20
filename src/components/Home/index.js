@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   Header: {
-    marginTop: theme.SIZES.BASE * 3,
+    marginTop: theme.SIZES.BASE,
     marginBottom: theme.SIZES.BASE,
   },
   confSection: {

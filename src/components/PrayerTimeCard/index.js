@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 8,
     paddingLeft: materialTheme.SIZES.BASE,
-    paddingTop: materialTheme.SIZES.BASE * 1.5,
+    paddingTop: materialTheme.SIZES.BASE,
     flexDirection: 'row',
     padding: materialTheme.SIZES.BASE,
   },

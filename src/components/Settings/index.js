@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import packages from '../../../package.json'
 import materialTheme from '../../constants/Theme';
 
 export default class Settings extends React.Component {
@@ -23,7 +24,7 @@ export default class Settings extends React.Component {
     switch (item.type) {
       case 'switch':
         return (
-          <Block row space="between" style={styles.rows}>
+          <Block row space="between" style={{ height: theme.SIZES.BASE * 2, paddingLeft: theme.SIZES.BASE / 2 }}>
             <Text size={14}>{item.title}</Text>
             <Switch
               onValueChange={() => this.toggleSwitch(item.id)}
@@ -45,7 +46,7 @@ export default class Settings extends React.Component {
         return (
           <Block style={styles.rows}>
             <TouchableOpacity onPress={() => navigate('Pro')}>
-              <Block row middle space="between" style={{ paddingTop: 7 }}>
+              <Block row middle space="between" style={{ paddingTop: 5 }}>
                 <Text size={14}>{item.title}</Text>
                 <Icon
                   name="angle-right"
@@ -63,7 +64,7 @@ export default class Settings extends React.Component {
 
   render() {
     const generalSettings = [
-      { title: 'Notifications', id: 'Notifications', type: 'button' },
+      { title: 'Notifications', id: 'Notifications', type: 'switch' },
     ];
 
     const privacy = [
@@ -76,12 +77,26 @@ export default class Settings extends React.Component {
       <View
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.settings}
-        style={{ padding: theme.SIZES.BASE * 2 }}
       >
         <Block row space="between" style={styles.enableBox}>
-          <Block row>
-            <MaterialCommunityIcons size={25} name="power" />
-            <Text size={14}>Enable Wise Tune</Text>
+          <Block row center>
+            <MaterialCommunityIcons
+              size={25}
+              name="power"
+              color={materialTheme.COLORS.MUTED}
+            />
+            <Block>
+              <Text size={14} style={{ marginLeft: theme.SIZES.BASE / 2 }}>
+                Enable Wise Tune
+              </Text>
+              <Text
+                color={materialTheme.COLORS.MUTED}
+                size={12}
+                style={{ marginLeft: theme.SIZES.BASE / 2 }}
+              >
+                Wise Tune is enabled
+              </Text>
+            </Block>
           </Block>
           <Switch
             ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
@@ -95,38 +110,68 @@ export default class Settings extends React.Component {
           />
         </Block>
 
-        <FlatList
-          data={generalSettings}
-          keyExtractor={(item, index) => item.id}
-          renderItem={this.renderItem}
-          ListHeaderComponent={
-            <Block style={styles.title}>
-              <Text bold color="#5DB996">
-                General settings
-              </Text>
-            </Block>
-          }
-        />
+        <Block style={styles.mainSettings}>
+          <FlatList
+            data={generalSettings}
+            keyExtractor={(item, index) => item.id}
+            renderItem={this.renderItem}
+            ListHeaderComponent={
+              <Block style={styles.title}>
+                <Text bold color="#5DB996" size={14}>
+                  General settings
+                </Text>
+              </Block>
+            }
+          />
 
-        <Block style={styles.title}>
-          <Text bold color="#5DB996">
-            Privacy Settings
-          </Text>
+          <Block style={styles.title}>
+            <Text bold color="#5DB996" size={14}>
+              Privacy Settings
+            </Text>
+          </Block>
+          <FlatList
+            data={privacy}
+            keyExtractor={(item, index) => item.id}
+            renderItem={this.renderItem}
+          />
+          <Block style={styles.title}>
+            <Text bold color="#5DB996" size={14}>
+              About
+            </Text>
+            <Block style={styles.aboutSection}>
+              <Block>
+              <Text>
+                Version: {packages.version}
+              </Text>
+              <Text color={materialTheme.COLORS.MUTED} size={12}>
+                
+              </Text>
+              </Block>
+              <Block>
+              <Text>
+                Feedback
+              </Text>
+              <Text color={materialTheme.COLORS.MUTED} size={12}>
+                Got a feature suggestion ? Found a bug ? Let us know at
+              </Text>
+              </Block>
+            </Block>
+          </Block>
         </Block>
-        <FlatList
-          data={privacy}
-          keyExtractor={(item, index) => item.id}
-          renderItem={this.renderItem}
-        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  enableBox: {},
+  enableBox: {
+    borderBottomWidth: 1,
+    borderBottomColor: materialTheme.COLORS.MUTED,
+    padding: theme.SIZES.BASE,
+  },
   settings: {
     paddingVertical: theme.SIZES.BASE,
+    padding: theme.SIZES.BASE,
   },
   title: {
     paddingTop: theme.SIZES.BASE,
@@ -134,7 +179,13 @@ const styles = StyleSheet.create({
   },
   rows: {
     height: theme.SIZES.BASE * 2,
-    paddingHorizontal: theme.SIZES.BASE,
-    marginBottom: theme.SIZES.BASE,
+    paddingHorizontal: theme.SIZES.BASE / 2,
+    marginBottom: theme.SIZES.BASE / 2,
   },
+  mainSettings: {
+    padding: theme.SIZES.BASE,
+  },
+  aboutSection: {
+    padding: theme.SIZES.BASE / 2
+  }
 });
