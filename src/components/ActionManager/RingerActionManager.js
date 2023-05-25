@@ -1,4 +1,4 @@
-import { Block, Button, Radio } from 'galio-framework';
+import { Block, Radio } from 'galio-framework';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
@@ -23,7 +23,7 @@ const requestDnDAccessPermission = async () => {
   return isPermissionGranted;
 };
 
-const VolumeManager = () => {
+const RingerActionManager = () => {
   const { mode, setMode } = useRingerMode();
   const [selectedMode, setSelectedMode] = useState();
 
@@ -50,8 +50,6 @@ const VolumeManager = () => {
     setSelectedMode(newMode);
   };
 
-  console.log(mode, selectedMode)
-
   return (
     <Block center flexDirection="row" style={styles.ringerContainer}>
       <Block flex center>
@@ -62,7 +60,7 @@ const VolumeManager = () => {
         />
         <Radio
           label="Sound"
-          color="#338F6B"
+          color={COLOR_GREY}
           initialValue={selectedMode === RINGER_MODE.normal}
           value={selectedMode}
           onChange={() => changeMode(RINGER_MODE.normal)}
@@ -82,7 +80,7 @@ const VolumeManager = () => {
         <Radio
           initialValue={selectedMode === RINGER_MODE.vibrate}
           label="Vibrate"
-          color="#338F6B"
+          color={COLOR_GREY}
           value={selectedMode}
           onChange={() => changeMode(RINGER_MODE.vibrate)}
           disable={selectedMode !==  RINGER_MODE.vibrate}
@@ -100,7 +98,7 @@ const VolumeManager = () => {
         />
         <Radio
           label="Silent"
-          color="#338F6B"
+          color={COLOR_GREY}
           initialValue={selectedMode === RINGER_MODE.silent}
           value={selectedMode}
           disable={selectedMode !==  RINGER_MODE.silent}
@@ -114,7 +112,7 @@ const VolumeManager = () => {
   );
 };
 
-export default VolumeManager;
+export default RingerActionManager;
 
 const styles = StyleSheet.create({
   ringerContainer: {

@@ -1,13 +1,13 @@
 import React from 'react'
 import ActionSheet from "react-native-actions-sheet";
-import {RingerActionManager} from '../ActionManager';
+import {MediaActionManager} from '../ActionManager';
 
-const RingerActionSheet =(props) =>  {
+const MediaActionSheet =(props) =>  {
     return (
       <ActionSheet id={props.sheetId}>
-          <RingerActionManager/>
+          <MediaActionManager/>
       </ActionSheet>
     );
   }
    
-  export default RingerActionSheet;
+  export default MediaActionSheet;

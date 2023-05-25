@@ -257,6 +257,7 @@ const Home = () => {
           places.push(marketObj);
         });
         setNearestPoints(places);
+        
         const nearestLocation = getNearestPlaceCoords(places);
         setNearestPoint(nearestLocation);
       })
@@ -306,19 +307,6 @@ const Home = () => {
       <Block style={styles.Header}>
         <PrayerList nextPrayer={nextPrayers && nextPrayers[0]} />
         <PrayerTimeCard nextPrayers={nextPrayers} />
-        {/* <Text color="white" size={28} style={{ paddingBottom: 8 }}>
-                Default Ringer Mode: {defaultRingerMode}
-              </Text>
-              <Text color="white" size={28} style={{ paddingBottom: 8 }}>
-                Selected Option Ringer Mode: {selectedRingerMode}
-              </Text>
-              <Text color="white" size={28} style={{ paddingBottom: 8 }}>
-                Current Ringer Mode: {currentRingerMode}
-              </Text>
-              <Text color="white" size={28} style={{ paddingBottom: 8 }}>
-                is Within Current Location:{' '}
-                {isWithinCurrentLocation ? 'yes' : 'no'}
-              </Text> */}
       </Block>
       <Block flex style={styles.confSection}>
         <Dashboard />

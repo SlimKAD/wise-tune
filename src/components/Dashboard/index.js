@@ -16,15 +16,17 @@ const cards = [
     title: 'Ringer, Notifications',
     subtitle: 'Vibration',
     icon: 'volume-high',
-    sheetName: 'volume-high',
-    gradientColor: ['#909bda', '#752098'],
+    sheetName: 'ringer-sheet',
+    // gradientColor: ['#909bda', '#752098'],
+    gradientColor: ['#5DB996', '#35926D'],
   },
   {
     title: 'Do Not Disturb',
     subtitle: 'Off',
     icon: 'power-sleep',
-    sheetName: 'ringer-sheet',
-    gradientColor: ['#879099', '#1F2D3B'],
+    sheetName: 'do-not-disturb-sheet',
+    // gradientColor: ['#879099', '#1F2D3B'],
+    gradientColor: ['#5DB996', '#35926D'],
   },
 
   {
@@ -32,13 +34,15 @@ const cards = [
     subtitle: '47%',
     icon: 'alarm',
     sheetName: 'alarm-sheet',
-    gradientColor: ['#eeb159', '#FE9601'],
+    // gradientColor: ['#eeb159', '#FE9601'],
+    gradientColor: ['#5DB996', '#35926D'],
   },
   {
     title: 'Calls',
     subtitle: '15%',
     icon: 'phone',
     sheetName: 'call-sheet',
+    // gradientColor: ['#5DB996', '#35926D'],
     gradientColor: ['#5DB996', '#35926D'],
   },
   {
@@ -46,7 +50,8 @@ const cards = [
     subtitle: '0%',
     icon: 'music',
     sheetName: 'medias-sheet',
-    gradientColor: ['#76c7ee', '#04A7F4'],
+    // gradientColor: ['#76c7ee', '#04A7F4'],
+    gradientColor: ['#5DB996', '#35926D'],
   },
 ];
 
@@ -71,6 +76,7 @@ const Dashboard = () => {
           styles.card,
           selectedSheet === options.sheetName && {
             backgroundColor: COLOR_HOVERED,
+            borderColor: COLOR_GREEN,
           },
         ]}
         key={options.title}
