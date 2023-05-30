@@ -28,6 +28,11 @@ const SIZES = {
   BASE: 16,
   FONT: 16,
   OPACITY: 0.8,
+  // Radio Button
+  RADIO_WIDTH: 24,
+  RADIO_HEIGHT: 24,
+  RADIO_THICKNESS: 2,
+
 };
 
 export default {

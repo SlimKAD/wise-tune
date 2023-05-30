@@ -290,14 +290,12 @@ const Home = () => {
 
   const updateRingerMode = (isWithinRadius) => {
     const newMode = isWithinRadius ? selectedRingerMode : defaultRingerMode;
-    console.log({ isWithinRadius, newMode });
     setCurrentRingerMode(newMode);
     setMode(+newMode);
   };
 
   const getSelectedMode = async () => {
     const selectedMode = await getMyStringValue('ringerMode');
-    console.log({ selectedMode });
     setRingerSelectedMode(selectedMode);
   };
 
