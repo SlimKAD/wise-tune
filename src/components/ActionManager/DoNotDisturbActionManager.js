@@ -5,13 +5,13 @@ import materialTheme from '../../constants/Theme';
 import theme from '../../constants/Theme';
 
 const BASE_SIZE = theme.SIZES.BASE;
-const COLOR_GREY = theme.COLORS.MUTED;
-const COLOR_GREEN = theme.COLORS.GREEN;
 
 const DoNotDisturbActionManager = () => {
+  const [switchValue, setSwitchValue] = useState(false);
+
   return (
     <Block row center space="between" style={styles.doNotDisturbBox}>
-      <Block style={{width: '90%'}}>
+      <Block style={{ width: '90%' }}>
         <Text size={BASE_SIZE}>Enable Do Not Disturb</Text>
         <Text muted size={12}>
           When enabled, calls and notifications will be silenced. Alarms will
@@ -20,8 +20,10 @@ const DoNotDisturbActionManager = () => {
       </Block>
 
       <Switch
+        initialValue={false}
+        value={switchValue}
         ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
-        onChange={() => console.log('changes')}
+        onChange={() => setSwitchValue(!switchValue)}
         thumbColor={
           Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null
         }

@@ -1,20 +1,21 @@
 import { Block, Slider, Text } from 'galio-framework';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import theme from '../../constants/Theme';
+import Slider from '@react-native-community/slider';
 
 const BASE_SIZE = theme.SIZES.BASE;
 const COLOR_GREY = theme.COLORS.MUTED;
 const COLOR_GREEN = theme.COLORS.GREEN;
 
-const SliderAction = (props) => {
+const SliderAction = ({ sliderValue, handleSliderChange, icon }) => {
   return (
     <Block row center style={styles.slider}>
       <MaterialCommunityIcons
         size={BASE_SIZE * 2}
         color={COLOR_GREY}
-        name={props.icon}
+        name={icon}
         style={styles.icon}
       />
       <Block flex>
@@ -26,13 +27,15 @@ const SliderAction = (props) => {
             height: BASE_SIZE,
             borderColor: COLOR_GREEN,
           }}
+          onValueChange={handleSliderChange}
+          step={0.1}
           activeColor={COLOR_GREEN}
-          value={20}
+          value={sliderValue}
           onSlidingcomplete={() => console.log('Slide Completed')}
         />
       </Block>
       <Text muted size={BASE_SIZE * 1.25} style={styles.text} top>
-        14%
+        {sliderValue}%
       </Text>
     </Block>
   );

@@ -1,5 +1,5 @@
 import { Block } from 'galio-framework';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   RINGER_MODE,
@@ -39,8 +39,6 @@ const RingerActionManager = () => {
     setSelectedMode(newMode);
     setMode(newMode);
   };
-
-  console.log({selectedMode})
 
   return (
     <Block center flexDirection="row" style={styles.ringerContainer}>

@@ -4,13 +4,17 @@ import { StyleSheet } from 'react-native';
 import theme from '../../constants/Theme';
 import Slider from '../Slider'
 
-const BASE_SIZE = theme.SIZES.BASE;
-const COLOR_GREY = theme.COLORS.MUTED;
-
 const AlarmActionManager = () => {
+
+  const [sliderValue, setSliderValue] = useState(0)
+
+  const handleSliderChange = (value) => {
+    setSliderValue(value);
+  };
+
   return (
     <Block>
-      <Slider icon='alarm'/>
+      <Slider icon='alarm' sliderValue={sliderValue} handleSliderChange={handleSliderChange}/>
     </Block>
   );
 };
